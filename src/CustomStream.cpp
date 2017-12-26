@@ -2,9 +2,11 @@
 
 // Own
 #include <CustomStream.hpp>
+#include <StreamListenerInterface.hpp>
 
-CustomStream::CustomStream(std::ostream& stream):
-    std::basic_streambuf<char>(), m_stream(stream)
+
+CustomStream::CustomStream(std::ostream& stream, StreamListenerInterface * pListener):
+    std::basic_streambuf<char>(), m_stream(stream), _pListener(pListener)
 {
     m_old_buf = stream.rdbuf();
     stream.rdbuf(this);
@@ -15,17 +17,24 @@ CustomStream::~CustomStream()
     m_stream.rdbuf(m_old_buf);
 }
 
-virtual int_type CustomStream::overflow(int_type v)
+CustomStream::int_type CustomStream::overflow(CustomStream::int_type v)
 {
-    if (v == '\n')
-    {
-        log_window->append("");
-    }
+    if (v == '\n' && _pListener)
+        _pListener->endLine();
+
     return v;
 }
 
-virtual std::streamsize CustomStream::xsputn(const char *str, std::streamsize n)
+std::streamsize CustomStream::xsputn(const char *cStr, std::streamsize n)
 {
+    if (_pListener)
+    {
+        _pListener->textCatched(std::string(cStr));
+        return n;
+    }
+    else
+        return 0;
+    /*
     QString str(p);
 
     if (str.contains("\n"))
@@ -46,4 +55,5 @@ virtual std::streamsize CustomStream::xsputn(const char *str, std::streamsize n)
         log_window->insertPlainText (str);
     }
     return n;
+    */
 }
