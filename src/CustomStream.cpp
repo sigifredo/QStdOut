@@ -34,26 +34,4 @@ std::streamsize CustomStream::xsputn(const char *cStr, std::streamsize n)
     }
     else
         return 0;
-    /*
-    QString str(p);
-
-    if (str.contains("\n"))
-    {
-        QStringList strSplitted = str.split("\n");
-
-        log_window->moveCursor (QTextCursor::End);
-        log_window->insertPlainText (strSplitted.at(0)); //Index 0 is still on the same old line
-
-        for (int i = 1; i < strSplitted.size(); i++)
-        {
-            log_window->append(strSplitted.at(i));
-        }
-    }
-    else
-    {
-        log_window->moveCursor (QTextCursor::End);
-        log_window->insertPlainText (str);
-    }
-    return n;
-    */
 }
