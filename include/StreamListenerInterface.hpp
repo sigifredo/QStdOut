@@ -9,7 +9,7 @@ class StreamListenerInterface
 {
 public:
     virtual void endLine() = 0;
-    virtual void textCatched(const std::string& str) = 0;
+    virtual void print(const std::string& str) = 0;
 };
 
 #endif

@@ -29,7 +29,7 @@ std::streamsize CustomStream::xsputn(const char *cStr, std::streamsize n)
 {
     if (_pListener)
     {
-        _pListener->textCatched(std::string(cStr));
+        _pListener->print(std::string(cStr));
         return n;
     }
     else

@@ -11,11 +11,13 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 include_directories(include)
 
 set (MOC_HDRS
+include/QStreamListener.hpp
 include/Window.hpp
 )
 
 set (SRCS
 src/CustomStream.cpp
+src/QStreamListener.cpp
 src/Window.cpp
 src/main.cpp
 )
